@@ -11,6 +11,15 @@ A benchmark run on a problem from quantum error correction: compute the **logica
 
 The answer is a rational function of degree 5 in `p`. The circuit is partially described as an image (missing from Markdown rendering), which creates an additional challenge: can models reconstruct the circuit from context, or do they fail gracefully?
 
+## Source
+
+This problem is drawn from the **[CritPt benchmark](https://github.com/CritPt/CritPt)**,
+a collection of expert-level scientific challenges for evaluating LLM reasoning.
+Specifically: `data/example_challenges/t/quantum_error_correction`.
+
+This repo documents an independent evaluation run of that problem across 11 models,
+with qualitative analysis of reasoning patterns, verbosity, and failure modes.
+
 **Why this problem?**
 - Requires real domain knowledge (stabilizer codes, fault-tolerance, Pauli propagation)
 - Has a clean, verifiable ground truth
