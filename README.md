@@ -63,9 +63,9 @@ Local models run on **Apple Silicon M3 Max (128GB)** via `llama-server` with qua
 | 7 | MiniMax M2.5 | 0.05688 | O(p) ✗ | `15(1-p)/(15-4p)` |
 | 8 | Apriel 1.6B | 0.28537 | O(p) ✗ | `(1-p)⁴` |
 | 9 | Petit Dense 9B | 0.59151 | invalid | `1 - 15p + 75p²` |
-| — | Step-Flash 3.5 | — | — | refused (missing circuit) |
-| — | Crow-4B ×2 | — | — | infinite loop |
-| — | Qwen Distill | — | — | "Hey! How's it going?" |
+| n/a | Step-Flash 3.5 | n/a | n/a | refused (missing circuit) |
+| n/a | Crow-4B ×2 | n/a | n/a | infinite loop |
+| n/a | Qwen Distill | n/a | n/a | "Hey! How's it going?" |
 
 ### Qualitative ranking (CoT + Decision + Efficiency + Verbosity)
 
@@ -87,7 +87,7 @@ Local models run on **Apple Silicon M3 Max (128GB)** via `llama-server` with qua
 | Figure | Description |
 |--------|-------------|
 | [`fig1_rmse.png`](figures/fig1_rmse.png) | RMSE bar chart for all models that gave an answer |
-| [`fig2_verbosity_vs_quality.png`](figures/fig2_verbosity_vs_quality.png) | Response size vs quality — bigger ≠ better |
+| [`fig2_verbosity_vs_quality.png`](figures/fig2_verbosity_vs_quality.png) | Response size vs quality: bigger ≠ better |
 | [`fig3_fidelity_curves.png`](figures/fig3_fidelity_curves.png) | F(p) curves for top models vs ground truth |
 | [`fig4_heatmap.png`](figures/fig4_heatmap.png) | Multi-axis qualitative scoring heatmap |
 
@@ -145,16 +145,16 @@ python analysis/scoring.py
 Claude Sonnet 4.6 produced 188K characters and 33 tool calls. Gemini produced the best qualitative result in ~7K characters. 27× more tokens did not yield a better answer.
 
 **2. O(p²) is the critical physical discriminator.**  
-A fault-tolerant circuit must suppress infidelity to second order. Only 5 of 9 answering models identified this — the others gave O(p) answers reflecting a fundamental misunderstanding of fault-tolerance.
+A fault-tolerant circuit must suppress infidelity to second order. Only 5 of 9 answering models identified this; the others gave O(p) answers reflecting a fundamental misunderstanding of fault-tolerance.
 
 **3. The coefficient is the actual hard problem.**  
-Getting `O(p²)` correct requires only qualitative physical reasoning. The exact coefficient (16/25 = 0.64) requires circuit-specific Pauli propagation analysis — a calculation no model performed correctly.
+Getting `O(p²)` correct requires only qualitative physical reasoning. The exact coefficient (16/25 = 0.64) requires circuit-specific Pauli propagation analysis, a calculation no model performed correctly.
 
 **4. Missing context reveals robustness gaps.**  
 Step-Flash 3.5 was the only model to correctly identify the missing circuit diagram and refuse rather than assume. This is rigorous, but operationally a failure mode for automated benchmarks with multimodal inputs.
 
 **5. Small local MoE models can be surprisingly good.**  
-Qwen3.5-35B-A3B (3B active params, local) correctly identified O(p²) and achieved the best RMSE — though by numerical coincidence more than physical insight.
+Qwen3.5-35B-A3B (3B active params, local) correctly identified O(p²) and achieved the best RMSE, though by numerical coincidence more than physical insight.
 
 ---
 
